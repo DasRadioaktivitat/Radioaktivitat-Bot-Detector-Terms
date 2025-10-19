@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Radioaktivitat Bot Detector</title>
+  <meta name="description" content="Radioaktivitat Bot Detector — Discord anti-bot & airdrop autocollector detection with code-drop tools." />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 128 128'%3E%3Ccircle cx='64' cy='64' r='60' fill='%23292b3a'/%3E%3Cpath d='M64 12a52 52 0 110 104 52 52 0 010-104z' fill='%232f80ff' opacity='.08'/%3E%3Cpath d='M62 18h4v30h-4zM80 30l3 3-21 21-3-3zM48 30l21 21-3 3-21-21z' fill='%23ffffff' opacity='.7'/%3E%3Ccircle cx='64' cy='64' r='10' fill='%23ffffff'/%3E%3C/svg%3E" />
+  <style>
+    :root {
+      --bg: #0f1221;
+      --card: #171a2b;
+      --text: #e8ebff;
+      --muted: #b7bce8;
+      --accent: #5865f2; /* Discord blurple */
+      --accent-2: #2dd4bf; /* teal */
+      --border: #262a44;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Inter, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+      background: radial-gradient(1200px 600px at 80% -20%, rgba(88,101,242,.15), transparent 60%), var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+    }
+    .wrap { max-width: 960px; margin: 0 auto; padding: 32px 20px 64px; }
+    header { display: flex; align-items: center; gap: 14px; margin-top: 12px; margin-bottom: 28px; }
+    .logo {
+      width: 44px; height: 44px; border-radius: 12px; background: linear-gradient(135deg, var(--accent), #8ab4ff);
+      display: grid; place-items: center; box-shadow: 0 10px 30px rgba(88,101,242,.35);
+    }
+    .logo span { font-weight: 800; color: white; }
+    h1 { font-size: clamp(1.6rem, 1.1rem + 2vw, 2.4rem); margin: 0; }
+    .muted { color: var(--muted); }
+    .card {
+      background: linear-gradient(180deg, rgba(45,52,97,.35), rgba(23,26,43,.6));
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: 0 10px 40px rgba(0,0,0,.25);
+      backdrop-filter: blur(4px);
+    }
+    .grid { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); margin-top: 16px; }
+    .badge { display: inline-block; padding: 6px 10px; border-radius: 999px; background: rgba(45,212,191,.12); color: #bff3ea; border: 1px solid rgba(45,212,191,.3); font-weight: 600; font-size: 12px; }
+    a.button {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 12px 16px; border-radius: 12px; text-decoration: none; color: white;
+      background: linear-gradient(180deg, var(--accent), #4854d4);
+      border: 1px solid rgba(255,255,255,.08);
+      box-shadow: 0 12px 30px rgba(88,101,242,.35); font-weight: 700;
+    }
+    a.button.secondary { background: linear-gradient(180deg, #1f2937, #111827); color: #e5e7eb; }
+    .stack { display: grid; gap: 16px; }
+    footer { margin-top: 40px; color: var(--muted); font-size: 14px; }
+    footer a { color: var(--text); opacity: .9; }
+    ul { margin: 0; padding-left: 1.1rem; }
+    .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-weight: 600; color: #d1eaff; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="logo"><span>R</span></div>
+      <div>
+        <h1>Radioaktivitat Bot Detector</h1>
+        <div class="muted">Discord anti-bot & airdrop autocollector detection with code-drop tools</div>
+      </div>
+    </header>
+
+    <div class="card stack">
+      <div class="badge">Now with /detector codedrop</div>
+      <p>Identify suspicious airdrop behavior (latency, typing patterns, repetition) and post reports to your chosen channel. Share codes safely using a modal + <span class="mono">Reveal Code</span> button (ephemeral & logged), including custom minimum wager notes for <span class="mono">.com</span> and <span class="mono">.us</span>.</p>
+      <div class="grid">
+        <div class="card">
+          <h3>Key features</h3>
+          <ul>
+            <li>Heuristics: latency, no-typing, CPM, smart-delay, repetition</li>
+            <li>Slash commands: <span class="mono">/detector setup|status|threshold|report|codedrop</span></li>
+            <li>Code reveal is private (ephemeral) and auditable</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Monetization-ready</h3>
+          <ul>
+            <li>Terms & Privacy links</li>
+            <li>Team ownership & 2FA</li>
+            <li>Payouts via Stripe (Discord flow)</li>
+          </ul>
+        </div>
+      </div>
+      <div class="stack">
+        <a class="button" href="terms.html">View Terms of Service</a>
+        <a class="button secondary" href="privacy.html">View Privacy Policy</a>
+      </div>
+    </div>
+
+    <footer>
+      © <span id="y"></span> Radioaktivitat — <a href="privacy.html">Privacy</a> · <a href="terms.html">Terms</a>
+    </footer>
+  </div>
+  <script>document.getElementById('y').textContent = new Date().getFullYear();</script>
+</body>
+</html>
