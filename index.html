@@ -101,6 +101,11 @@
       display: inline-block; margin-top: 6px; padding: 4px 8px; font-size: 11px;
       border-radius: 999px; background: rgba(88,101,242,.12); border: 1px solid rgba(88,101,242,.3);
     }
+    a.button[href*="discord.com/oauth2"] {
+      background: linear-gradient(180deg, #3ba55d, #2f8e4c);
+      box-shadow: 0 12px 30px rgba(59,165,93,.35);
+    }
+
   </style>
 </head>
 <body>
@@ -129,7 +134,7 @@
         <div class="card">
           <h3>Key features</h3>
           <ul>
-            <li>Heuristics: latency, no-typing, CPM, smart-delay, repetition, reaction speed, entropy, humanization, account age</li>
+            <li>Heuristics: latency, typing, CPM, smart-delay, repetition, reaction, entropy, humanization, account age</li>
             <li>Tip-pattern signals: repeat gift ratio, reciprocity, amount-weighted ratio, time-correlation</li>
             <li>Slash commands:
               <span class="mono">/detector setup</span>,
@@ -140,16 +145,21 @@
               <span class="mono">/detector tipstats</span>
             </li>
             <li><span class="mono">Reveal Code</span> is private (ephemeral) and fully logged</li>
-            <li>Health endpoints: <span class="mono">/metrics</span> (Prometheus) and <span class="mono">/heuristics</span> (JSON)</li>
+            <li>Health endpoints: <span class="mono">/metrics</span> · <span class="mono">/heuristics</span></li>
           </ul>
         </div>
       </div>
 
+      
+
       <div class="stack">
         <a class="button" href="terms.html">View Terms of Service</a>
         <a class="button secondary" href="privacy.html">View Privacy Policy</a>
+        <a class="button" href="https://discord.com/oauth2/authorize?client_id=1429224310152761385&permissions=117760&integration_type=0&scope=applications.commands+bot" target="_blank" rel="noopener">
+          ➕ Invite Radioaktivitat to your server
+        </a>
       </div>
-    </div>
+
         <!-- Heuristics -->
     <div class="card" style="margin-top:16px;">
       <h3 style="margin-top:0;">Heuristics monitored</h3>
