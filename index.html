@@ -59,6 +59,30 @@
     footer a { color: var(--text); opacity: .9; }
     ul { margin: 0; padding-left: 1.1rem; }
     .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-weight: 600; color: #d1eaff; }
+        .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 16px;
+      margin-top: 8px;
+    }
+    .metric {
+      background: linear-gradient(180deg, rgba(45,52,97,.25), rgba(23,26,43,.45));
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px;
+    }
+    .metric-label {
+      color: var(--muted);
+      font-size: 12px;
+      letter-spacing: .02em;
+      text-transform: uppercase;
+    }
+    .metric-value {
+      font-size: clamp(1.4rem, 1.1rem + 1vw, 2.1rem);
+      font-weight: 800;
+      margin-top: 2px;
+      line-height: 1.1;
+    }
   </style>
 </head>
 <body>
@@ -107,11 +131,80 @@
         <a class="button secondary" href="privacy.html">View Privacy Policy</a>
       </div>
     </div>
+    
+        <!-- Live Metrics -->
+    <div class="card" id="metrics-card" style="margin-top:16px;">
+      <h3 style="margin-top:0;">Live metrics</h3>
+      <div class="metrics-grid">
+        <div class="metric">
+          <div class="metric-label">Total drops</div>
+          <div class="metric-value" id="m-drops">—</div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">Flags</div>
+          <div class="metric-value" id="m-flags">—</div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">Code reveals</div>
+          <div class="metric-value" id="m-reveals">—</div>
+        </div>
+      </div>
+      <div class="muted" id="m-updated" style="margin-top:8px;font-size:12px;">Waiting for data…</div>
+    </div>
 
     <footer>
       © <span id="y"></span> Radioaktivitat — <a href="privacy.html">Privacy</a> · <a href="terms.html">Terms</a>
     </footer>
   </div>
-  <script>document.getElementById('y').textContent = new Date().getFullYear();</script>
+    <script>
+    // Footer year
+    document.getElementById('y').textContent = new Date().getFullYear();
+
+    // --- Live metrics ---
+    const elDrops   = document.getElementById('m-drops');
+    const elFlags   = document.getElementById('m-flags');
+    const elReveals = document.getElementById('m-reveals');
+    const elUpdated = document.getElementById('m-updated');
+
+    // If the metrics API is on the same origin as this page, this is fine.
+    // Otherwise set METRICS_URL to the absolute URL you expose (and ensure CORS/Proxy).
+    const METRICS_URL = '/metrics';
+
+    function parsePromText(text) {
+      // Very small parser for the 3 counters we expose
+      // Accepts lines like: "detector_total_drops 42"
+      const out = {};
+      for (const line of text.split('\n')) {
+        const s = line.trim();
+        if (!s || s.startsWith('#')) continue;
+        const sp = s.split(/\s+/);
+        if (sp.length < 2) continue;
+        const name = sp[0];
+        const val  = Number(sp[1]);
+        if (!Number.isFinite(val)) continue;
+        out[name] = val;
+      }
+      return out;
+    }
+
+    async function refreshMetrics() {
+      try {
+        const res = await fetch(METRICS_URL, { cache: 'no-store' });
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        const text = await res.text();
+        const m = parsePromText(text);
+        elDrops.textContent   = (m.detector_total_drops ?? '—');
+        elFlags.textContent   = (m.detector_flags ?? '—');
+        elReveals.textContent = (m.detector_reveals ?? '—');
+        elUpdated.textContent = 'Updated ' + new Date().toLocaleTimeString();
+      } catch (err) {
+        elUpdated.textContent = 'Metrics unavailable (' + err.message + ')';
+      }
+    }
+
+    refreshMetrics();
+    setInterval(refreshMetrics, 15000);
+  </script>
+
 </body>
 </html>
