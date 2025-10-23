@@ -110,6 +110,23 @@
       background: linear-gradient(180deg, #3ba55d, #2f8e4c);
       box-shadow: 0 12px 30px rgba(59,165,93,.35);
     }
+    .heur-more {
+      text-align: right;
+      font-weight: 800;
+      font-size: 0.9rem;
+      color: var(--accent-2);
+      margin-top: 4px;
+      letter-spacing: 0.05em;
+      text-shadow: 0 0 8px rgba(160,107,255,.45);
+    }
+    .and-more {
+      font-weight: 700;
+      color: var(--accent-2);
+      letter-spacing: 0.04em;
+      text-align: right;
+      margin-top: 4px;
+    }
+
 
   </style>
 </head>
@@ -149,6 +166,7 @@
               <span class="mono">/detector codedrop</span>,
               <span class="mono">/detector tipstats</span>
             </li>
+            <li class="and-more">…and more!</li>
             <li><span class="mono">Reveal Code</span> is private (ephemeral) and fully logged</li>
             <li>Health endpoints: <span class="mono">/metrics</span> · <span class="mono">/heuristics</span></li>
           </ul>
@@ -220,6 +238,7 @@
           <div class="heur-badge">secondary rule</div>
         </div>
       </div>
+      <div class="heur-more">…and more!</div>
       <div class="muted" style="margin-top:10px;font-size:12px;">
         Final score is the sum of active weights (capped at 1.0). Users are flagged when <span class="mono">score ≥ threshold</span> (default 0.6, configurable).
       </div>
