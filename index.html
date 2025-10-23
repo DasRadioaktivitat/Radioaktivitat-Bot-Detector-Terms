@@ -83,6 +83,24 @@
       margin-top: 2px;
       line-height: 1.1;
     }
+    .heuristics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 12px;
+      margin-top: 8px;
+    }
+    .heur {
+      background: linear-gradient(180deg, rgba(45,52,97,.25), rgba(23,26,43,.45));
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px;
+    }
+    .heur-name { font-weight: 800; margin-bottom: 2px; }
+    .heur-desc { color: var(--muted); font-size: 13px; }
+    .heur-badge {
+      display: inline-block; margin-top: 6px; padding: 4px 8px; font-size: 11px;
+      border-radius: 999px; background: rgba(88,101,242,.12); border: 1px solid rgba(88,101,242,.3);
+    }
   </style>
 </head>
 <body>
@@ -131,7 +149,66 @@
         <a class="button secondary" href="privacy.html">View Privacy Policy</a>
       </div>
     </div>
-    
+        <!-- Heuristics -->
+    <div class="card" style="margin-top:16px;">
+      <h3 style="margin-top:0;">Heuristics monitored</h3>
+      <div class="heuristics-grid">
+        <div class="heur">
+          <div class="heur-name">Fast latency</div>
+          <div class="heur-desc">Replies too quickly after drop start (e.g., &lt; 2s).</div>
+          <div class="heur-badge">weight ~ 0.30</div>
+        </div>
+        <div class="heur">
+          <div class="heur-name">No typing</div>
+          <div class="heur-desc">No “typing” signal before sending.</div>
+          <div class="heur-badge">weight ~ 0.20</div>
+        </div>
+        <div class="heur">
+          <div class="heur-name">Unhuman CPM</div>
+          <div class="heur-desc">Very high characters-per-minute while “typing”.</div>
+          <div class="heur-badge">weight ~ 0.20</div>
+        </div>
+        <div class="heur">
+          <div class="heur-name">Smart-delay pattern</div>
+          <div class="heur-desc">Message hits predictable offsets (e.g., ¼ of window).</div>
+          <div class="heur-badge">weight ~ 0.15</div>
+        </div>
+        <div class="heur">
+          <div class="heur-name">Repetition</div>
+          <div class="heur-desc">Same text repeated across recent messages.</div>
+          <div class="heur-badge">weight ~ 0.15</div>
+        </div>
+        <div class="heur">
+          <div class="heur-name">Reaction too fast</div>
+          <div class="heur-desc">Emoji reaction almost instantly after drop.</div>
+          <div class="heur-badge">weight ~ 0.10</div>
+        </div>
+        <div class="heur">
+          <div class="heur-name">Low entropy</div>
+          <div class="heur-desc">Message looks templated / copy-pasted (low Shannon entropy).</div>
+          <div class="heur-badge">weight ~ 0.10</div>
+        </div>
+        <div class="heur">
+          <div class="heur-name">Low humanization</div>
+          <div class="heur-desc">Lacks punctuation/emoji or natural token variation.</div>
+          <div class="heur-badge">weight ~ 0.10</div>
+        </div>
+        <div class="heur">
+          <div class="heur-name">Very new account</div>
+          <div class="heur-desc">Account age under N days (e.g., 7d).</div>
+          <div class="heur-badge">weight ~ 0.10</div>
+        </div>
+        <div class="heur">
+          <div class="heur-name">High participation ratio</div>
+          <div class="heur-desc">Shows up in a large fraction of drops (e.g., ≥ 60% after ≥ 8 samples).</div>
+          <div class="heur-badge">secondary rule</div>
+        </div>
+      </div>
+      <div class="muted" style="margin-top:10px;font-size:12px;">
+        Final score is the sum of active weights (capped at 1.0). Users are flagged when <span class="mono">score ≥ threshold</span> (default 0.6, configurable).
+      </div>
+    </div>
+
         <!-- Live Metrics -->
     <div class="card" id="metrics-card" style="margin-top:16px;">
       <h3 style="margin-top:0;">Live metrics</h3>
@@ -151,7 +228,7 @@
       </div>
       <div class="muted" id="m-updated" style="margin-top:8px;font-size:12px;">Waiting for data…</div>
     </div>
-
+    
     <footer>
       © <span id="y"></span> Radioaktivitat — <a href="privacy.html">Privacy</a> · <a href="terms.html">Terms</a>
     </footer>
@@ -159,7 +236,7 @@
     <script>
     // Footer year
     document.getElementById('y').textContent = new Date().getFullYear();
-
+  
     // --- Live metrics ---
     const elDrops   = document.getElementById('m-drops');
     const elFlags   = document.getElementById('m-flags');
