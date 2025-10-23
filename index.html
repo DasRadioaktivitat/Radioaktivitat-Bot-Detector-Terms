@@ -129,20 +129,22 @@
         <div class="card">
           <h3>Key features</h3>
           <ul>
-            <li>Heuristics: latency, no-typing, CPM, smart-delay, repetition</li>
-            <li>Slash commands: <span class="mono">/detector setup|status|threshold|report|codedrop</span></li>
-            <li>Code reveal is private (ephemeral) and auditable</li>
-          </ul>
-        </div>
-        <div class="card">
-          <h3>Monetization-ready</h3>
-          <ul>
-            <li>Terms & Privacy links</li>
-            <li>Team ownership & 2FA</li>
-            <li>Payouts via Stripe (Discord flow)</li>
+            <li>Heuristics: latency, no-typing, CPM, smart-delay, repetition, reaction speed, entropy, humanization, account age</li>
+            <li>Tip-pattern signals: repeat gift ratio, reciprocity, amount-weighted ratio, time-correlation</li>
+            <li>Slash commands:
+              <span class="mono">/detector setup</span>,
+              <span class="mono">/detector status</span>,
+              <span class="mono">/detector threshold</span>,
+              <span class="mono">/detector report</span>,
+              <span class="mono">/detector codedrop</span>,
+              <span class="mono">/detector tipstats</span>
+            </li>
+            <li><span class="mono">Reveal Code</span> is private (ephemeral) and fully logged</li>
+            <li>Health endpoints: <span class="mono">/metrics</span> (Prometheus) and <span class="mono">/heuristics</span> (JSON)</li>
           </ul>
         </div>
       </div>
+
       <div class="stack">
         <a class="button" href="terms.html">View Terms of Service</a>
         <a class="button secondary" href="privacy.html">View Privacy Policy</a>
