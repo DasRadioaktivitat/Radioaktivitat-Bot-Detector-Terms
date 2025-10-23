@@ -12,21 +12,26 @@
   <link rel="manifest" href="/site.webmanifest" />
   <style>
     :root {
-      --bg: #0f1221;
-      --card: #171a2b;
-      --text: #e8ebff;
-      --muted: #b7bce8;
-      --accent: #5865f2; /* Discord blurple */
-      --accent-2: #2dd4bf; /* teal */
-      --border: #262a44;
+      /* Deep purple palette */
+      --bg: #120019;             /* base background — very deep purple */
+      --bg-gradient-start: #1b0030; /* slightly lighter core */
+      --card: #1a0b28;
+      --text: #e9e0ff;
+      --muted: #bbaee0;
+      --accent: #a06bff;          /* violet accent */
+      --accent-2: #8b5cf6;        /* complementary purple */
+      --border: #2e1550;
     }
-    * { box-sizing: border-box; }
     body {
-      margin: 0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Inter, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
-      background: radial-gradient(1200px 600px at 80% -20%, rgba(88,101,242,.15), transparent 60%), var(--bg);
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Inter, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+      background:
+        radial-gradient(1400px 800px at 70% -10%, rgba(160,107,255,.25), transparent 70%),
+        linear-gradient(180deg, var(--bg-gradient-start), var(--bg));
       color: var(--text);
       line-height: 1.5;
     }
+
     .wrap { max-width: 960px; margin: 0 auto; padding: 32px 20px 64px; }
     header { display: flex; align-items: center; gap: 14px; margin-top: 12px; margin-bottom: 28px; }
     .logo {
